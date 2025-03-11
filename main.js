@@ -74,6 +74,26 @@ Ball.prototype.update = function () {
 }
 
 Player.prototype.update = function () {
+  if ((this.x + this.size) >= width) {
+    this.velX = 0;
+    this.x--;
+  }
+
+  if ((this.x - this.size) <= 0) {
+    this.velX = 0;
+    this.x++;
+  }
+
+  if ((this.y + this.size) >= height) {
+    this.velY = 0;
+    this.y--;
+  }
+
+  if ((this.y - this.size) <= 0) {
+    this.velY = 0;
+    this.y++;
+  }
+
   this.x += this.velX;
   this.y += this.velY;
 }
@@ -83,7 +103,7 @@ Ball.prototype.collisionDetect = function () {
     const dx1 = this.x - player.x;
     const dy1 = this.y - player.y;
     const distance1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-    if (distance1 < this.size + player.size) {playerDeath()}
+    if (distance1 < this.size + player.size) { playerDeath() }
     if (!(this === balls[j])) {
       const dx = this.x - balls[j].x;
       const dy = this.y - balls[j].y;
@@ -100,34 +120,34 @@ Ball.prototype.collisionDetect = function () {
   }
 }
 
-function createBalls(){
-while (balls.length < 25) {
-  let size = random(10, 20);
-  let ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
-    random(0 + size, width - size),
-    random(0 + size, height - size),
-    random(-7, 7),
-    random(-7, 7),
-    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-    size
-  );
+function createBalls() {
+  while (balls.length < 25) {
+    let size = random(10, 20);
+    let ball = new Ball(
+      // ball position always drawn at least one ball width
+      // away from the edge of the canvas, to avoid drawing errors
+      random(0 + size, width - size),
+      random(0 + size, height - size),
+      random(-7, 7),
+      random(-7, 7),
+      'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
+      size
+    );
 
-  balls.push(ball);
-}
+    balls.push(ball);
+  }
 }
 
 function loop() {
-  if(balls.length == 0){createBalls()}
-  if(loopOn) {
+  if (balls.length == 0) { createBalls() }
+  if (loopOn) {
     document.getElementById('menu').style.display = 'none';
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, width, height);
     player.draw();
     timer++;
     document.getElementById('timer').innerHTML = `<h2>Score: ${timer}</h2>`
-    if(timer>highScore){highScore = timer}
+    if (timer > highScore) { highScore = timer }
 
     for (let i = 0; i < balls.length; i++) {
       balls[i].draw();

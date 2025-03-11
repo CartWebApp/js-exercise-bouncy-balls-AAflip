@@ -140,6 +140,7 @@ function createBalls() {
 
 function loop() {
   if (balls.length == 0) { createBalls() }
+  if (player === null) {player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 20, playerColor)}
   if (loopOn) {
     document.getElementById('menu').style.display = 'none';
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
@@ -204,7 +205,7 @@ function createGame() {
     <label><input type="radio" name="colors" onclick='playerColor = "gold"' value="3"><span id="yellow">Yellow</span></label>
     <label><input type="radio" name="colors" onclick='playerColor = "green"' value="4"><span id="green">Green</span></label>
   </p>
-  <button onclick='loopOn = true;player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 20, playerColor);loop();'>Play</button>
+  <button onclick='loopOn = true;loop();'>Play</button>
   <button onclick='window.close();'>Quit</button>`
 }
 
@@ -212,6 +213,7 @@ function playerDeath() {
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
   balls = [];
+  player = null;
   document.getElementById('menu').style.display = 'flex';
   document.getElementById('menu').style.flexDirection = 'column';
   document.getElementById('menu').style.alignItems = 'center';

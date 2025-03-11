@@ -12,6 +12,7 @@ let highScore = 0;
 let loopOn = false;
 let playerColor = 'red';
 let player;
+let respawn = false;
 
 // function to generate random number
 
@@ -140,8 +141,14 @@ function createBalls() {
 
 function loop() {
   if (balls.length == 0) { createBalls() }
-  if (player === null) {player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 20, playerColor)}
+  if (respawn == true) {
+    if (player.x != window.innerWidth/2 || player.y != window.innerHeight/2) {
+    player.x = window.innerWidth/2;
+    player.y = window.innerHeight/2;
+  }
+  }
   if (loopOn) {
+    respawn = false;
     document.getElementById('menu').style.display = 'none';
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, width, height);
@@ -205,7 +212,7 @@ function createGame() {
     <label><input type="radio" name="colors" onclick='playerColor = "gold"' value="3"><span id="yellow">Yellow</span></label>
     <label><input type="radio" name="colors" onclick='playerColor = "green"' value="4"><span id="green">Green</span></label>
   </p>
-  <button onclick='loopOn = true;loop();'>Play</button>
+  <button onclick='loopOn = true;player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 20, playerColor);loop();'>Play</button>
   <button onclick='window.close();'>Quit</button>`
 }
 
@@ -220,7 +227,7 @@ function playerDeath() {
   document.getElementById('menu').innerHTML = `
   <h2>High Score: ${highScore}</h2>
   <h3>Round Score: ${timer}</h3>
-  <button onclick='loopOn = true;timer=0;loop();'>Play Again</button>
+  <button onclick='loopOn = true;respawn=true;timer=0;loop();'>Play Again</button>
   <button onclick='window.close();'>Quit</button>`;
   loopOn = false;
 }

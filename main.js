@@ -80,6 +80,10 @@ Player.prototype.update = function () {
 
 Ball.prototype.collisionDetect = function () {
   for (let j = 0; j < balls.length; j++) {
+    const dx1 = this.x - player.x;
+    const dy1 = this.y - player.y;
+    const distance1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+    if (distance1 < this.size + player.size) {playerDeath()}
     if (!(this === balls[j])) {
       const dx = this.x - balls[j].x;
       const dy = this.y - balls[j].y;
@@ -95,11 +99,6 @@ Ball.prototype.collisionDetect = function () {
     }
   }
 }
-
-Player.prototype.collisionDetect = function (){
-  // balls :)
-}
-
 
 while (balls.length < 25) {
   let size = random(10, 20);
@@ -132,7 +131,6 @@ function loop() {
       balls[i].update();
       player.update();
       balls[i].collisionDetect();
-      player.collisionDetect();
     }
 
     requestAnimationFrame(loop);

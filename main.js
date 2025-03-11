@@ -10,6 +10,8 @@ let balls = [];
 let timer = 0;
 let highScore = 0;
 let loopOn = false;
+let playerColor = 'red';
+let player;
 
 // function to generate random number
 
@@ -27,12 +29,12 @@ function Ball(x, y, velX, velY, color, size) {
   this.size = size;
 }
 
-function Player(x, y, velX, velY, size) {
+function Player(x, y, velX, velY, size, color) {
   this.x = x;
   this.y = y;
   this.velX = velX;
   this.velY = velY;
-  this.color = 'red';
+  this.color = color;
   this.size = size;
 }
 
@@ -46,11 +48,9 @@ Ball.prototype.draw = function () {
 Player.prototype.draw = function () {
   ctx.beginPath();
   ctx.fillStyle = this.color;
-  ctx.arc(this.x, this.y, this.size, 1 * Math.PI, 0);
+  ctx.rect(this.x, this.y, this.size, this.size);
   ctx.fill();
 }
-
-let player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 15);
 
 Ball.prototype.update = function () {
   if ((this.x + this.size) >= width) {
@@ -197,7 +197,14 @@ document.addEventListener('keyup', e => {
 function createGame() {
   document.getElementById('menu').innerHTML = `
   <h2 id='title'>Stupendus Bouncing Balls Game</h2>
-  <button onclick='loopOn = true;loop();'>Play</button>
+  <h3>Pick a color:</h3>
+  <p id="colors">
+    <label><input type="radio" name="colors" onclick='playerColor = "red"' value="1"><span id="red">Red</span></label>
+    <label><input type="radio" name="colors" onclick='playerColor = "blue"' value="2"><span id="blue">Blue</span></label>
+    <label><input type="radio" name="colors" onclick='playerColor = "gold"' value="3"><span id="yellow">Yellow</span></label>
+    <label><input type="radio" name="colors" onclick='playerColor = "green"' value="4"><span id="green">Green</span></label>
+  </p>
+  <button onclick='loopOn = true;player = new Player(window.innerWidth / 2, window.innerHeight / 2, 0, 0, 20, playerColor);loop();'>Play</button>
   <button onclick='window.close();'>Quit</button>`
 }
 

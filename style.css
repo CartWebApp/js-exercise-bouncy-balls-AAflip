@@ -23,3 +23,53 @@ h1 {
   color: transparent;
   text-shadow: 0 0 4px white;
 }
+
+#colors input[type="radio"] {
+  display: none;
+}
+
+#colors span {
+  display: inline-block;
+  padding: 10px;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+
+#red{
+  border: 2px solid red;
+  color: red;
+}
+
+#blue{
+  border: 2px solid blue;
+  color: blue;
+}
+
+#yellow{
+  border: 2px solid gold;
+}
+
+#green{
+  border: 2px solid green;
+  color: green;
+}
+
+#colors input[type="radio"]:checked + #red {
+  background-color: red;
+  color: black;
+}
+
+#colors input[type="radio"]:checked + #blue {
+  background-color: blue;
+  color: white;
+}
+
+#colors input[type="radio"]:checked + #yellow {
+  background-color: gold;
+  color: black;
+}
+
+#colors input[type="radio"]:checked + #green {
+  background-color: green;
+  color: black;
+}

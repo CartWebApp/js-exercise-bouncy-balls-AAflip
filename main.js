@@ -220,7 +220,6 @@ function playerDeath() {
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
   balls = [];
-  player = null;
   document.getElementById('menu').style.display = 'flex';
   document.getElementById('menu').style.flexDirection = 'column';
   document.getElementById('menu').style.alignItems = 'center';

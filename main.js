@@ -100,6 +100,7 @@ Ball.prototype.collisionDetect = function () {
   }
 }
 
+function createBalls(){
 while (balls.length < 25) {
   let size = random(10, 20);
   let ball = new Ball(
@@ -115,8 +116,10 @@ while (balls.length < 25) {
 
   balls.push(ball);
 }
+}
 
 function loop() {
+  if(balls.length == 0){createBalls()}
   if(loopOn) {
     document.getElementById('menu').style.display = 'none';
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
@@ -181,6 +184,7 @@ function createGame() {
 function playerDeath() {
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
+  balls = [];
   document.getElementById('menu').style.display = 'flex';
   document.getElementById('menu').style.flexDirection = 'column';
   document.getElementById('menu').style.alignItems = 'center';
